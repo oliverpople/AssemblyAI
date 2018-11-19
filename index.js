@@ -42,6 +42,18 @@ app.get("/keywords", function(req, res) {
   });
 });
 
+app.get("/keywords/url", async function(req, res) {
+  var uRL = req.query.link;
+  if (uRL) {
+    var transcriptText = await getTranscriptURL(uRL);
+    var extractedKeyWords = extractKeyWords(transcriptText);
+    res.send("Extracted keywords" + extractedKeyWords);
+  } else {
+    res.send("Its a 404");
+    res.end();
+  }
+});
+
 async function getTranscript(file) {
   try {
     const transcript = new assemblyai.Upload(file);
@@ -54,18 +66,18 @@ async function getTranscript(file) {
   }
 }
 
-async function getTranscriptURL() {
+async function getTranscriptURL(uRL) {
   try {
     const transcript = new assemblyai.Transcript();
     const response = await transcript.create({
-      audio_src_url:
-        "https://s3-us-west-2.amazonaws.com/blog.assemblyai.com/audio/8-7-2018-post/7510.mp3"
+      audio_src_url: uRL
     });
     const { id } = response.get();
     const data = await transcript.poll(id);
     var responseJson = data.get();
-    console.log("function firing");
-    console.log(responseJson);
+    var transcriptText = responseJson.text;
+    console.log(transcriptText);
+    return transcriptText;
   } catch (e) {
     // Do some error handling here
   }

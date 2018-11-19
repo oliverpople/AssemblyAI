@@ -5,13 +5,11 @@ import axios from "axios";
 class Player extends Component {
   state = { keywords: "" };
 
-  async componentDidMount() {
-    const res = await axios.get("/keywords?id=bbcminute.mp3");
-    var keywordArray = res.data;
-    //clean up array
-    console.log(keywordArray);
-    this.setState({ keywords: keywordArray });
-  }
+  // async componentDidMount() {
+  //   const res = await axios.get("/keywords?id=bbcminute.mp3");
+  //   var keywordArray = res.data;
+  //   this.setState({ keywords: keywordArray });
+  // }
 
   renderKeywords() {
     if (this.state.keywords) {

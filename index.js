@@ -47,7 +47,7 @@ app.get("/keywords/url", async function(req, res) {
   if (uRL) {
     var transcriptText = await getTranscriptURL(uRL);
     var extractedKeyWords = extractKeyWords(transcriptText);
-    res.send("Extracted keywords" + extractedKeyWords);
+    res.send(extractedKeyWords);
   } else {
     res.send("Its a 404");
     res.end();

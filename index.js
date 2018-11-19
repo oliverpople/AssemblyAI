@@ -54,6 +54,23 @@ async function getTranscript(file) {
   }
 }
 
+async function getTranscriptURL() {
+  try {
+    const transcript = new assemblyai.Transcript();
+    const response = await transcript.create({
+      audio_src_url:
+        "https://s3-us-west-2.amazonaws.com/blog.assemblyai.com/audio/8-7-2018-post/7510.mp3"
+    });
+    const { id } = response.get();
+    const data = await transcript.poll(id);
+    var responseJson = data.get();
+    console.log("function firing");
+    console.log(responseJson);
+  } catch (e) {
+    // Do some error handling here
+  }
+}
+
 function extractKeyWords(text) {
   var extractedKeyWords = keyword_extractor.extract(text, {
     language: "english",

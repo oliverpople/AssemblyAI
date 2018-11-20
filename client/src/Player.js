@@ -39,7 +39,11 @@ class Player extends Component {
   renderKeywords() {
     if (this.state.keywords) {
       var keywords = this.state.keywords.map(function(keyword, i) {
-        return <li key={i}>{keyword}</li>;
+        return (
+          <li key={i}>
+            <a href={`https://www.google.ca/search?q=${keyword}`}>{keyword}</a>
+          </li>
+        );
       });
       return keywords;
     }

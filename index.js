@@ -27,6 +27,7 @@ app.get("/audio", function(req, res) {
   });
 });
 
+// plays audio from file via rstream
 app.get("/keywords", function(req, res) {
   var fileId = req.query.id;
   var file = __dirname + "/audio/" + fileId;
